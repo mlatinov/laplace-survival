@@ -1,4 +1,4 @@
-name = "laplace"
+name = "survival"
 version = "0.1.0"
 exports = [
     "srv_gompertz_log_hazard",
