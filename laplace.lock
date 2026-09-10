@@ -1,0 +1,8 @@
+root = ["survival"]
+
+[[package]]
+name = "survival"
+version = "0.1.0"
+checksum = "sha256:c51ac7b94acf4bd3843e3d20b4a9659c05a8f559a4cb9b2838332b6c5c73243e"
+source = "git+https://github.com/mlatinov/laplace-survival@0.1.0#laplace"
+dependencies = []
