@@ -1,5 +1,5 @@
 name = "survival"
-version = "0.1.0"
+version = "0.1.1"
 exports = [
     "srv_gompertz_log_hazard",
     "srv_gompertz_log_hazard",
@@ -56,4 +56,7 @@ exports = [
     "srv_gompertz_rng",
     "srv_makeham_rng",
     "srv_log_logistics_rng",
+    "srv_expm1_div",
+    "srv_expm1_div",
+    "srv_log1p_div",
 ]

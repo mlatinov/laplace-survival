@@ -208,6 +208,8 @@ vector srv_pwe_log_hazard(data array[] int interval, vector log_lambda, vector e
 // Gompertz Cumulative Hazard function =============================================================
 
 // Helper functions for save div
+//@laplace 
+//@brief functions for save computes (exp(x) - 1) / x 
 real srv_expm1_div(real x) {                             // computes (exp(x) - 1) / x safely
   if (abs(x) < 1e-5) return 1 + x / 2 + square(x) / 6;   // Taylor series near 0
   return expm1(x) / x;
@@ -737,6 +739,8 @@ vector srv_pwe_survival_curve(data matrix E, vector log_lambda, vector eta){
 }
 
 // Random Number Generation from main functions (inverse CDF)
+//@laplace
+//@brief Safe log(1 + x) / x
 real srv_log1p_div(real x) {          // log1p(x) / x, safe near 0
   if (abs(x) < 1e-5) return 1 - x / 2 + square(x) / 3;
   return log1p(x) / x;
