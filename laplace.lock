@@ -2,7 +2,7 @@ root = ["survival"]
 
 [[package]]
 name = "survival"
-version = "0.1.0"
-checksum = "sha256:c51ac7b94acf4bd3843e3d20b4a9659c05a8f559a4cb9b2838332b6c5c73243e"
-source = "git+https://github.com/mlatinov/laplace-survival@0.1.0#laplace"
+version = "0.1.1"
+checksum = "sha256:ad3bc335061848acbd7a558cb99aca39c72ce649f52b2711732f9c55a9e2facf"
+source = "git+https://github.com/mlatinov/laplace-survival@0.1.1#laplace"
 dependencies = []
