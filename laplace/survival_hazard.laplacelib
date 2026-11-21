@@ -19,7 +19,7 @@
 // @example real lh = survival::srv_gompertz_log_hazard(2.0, gamma, eta0);
 // @math
 // \log h(t) = \eta + \gamma t
-real srv_gompertz_log_hazard(real t, real gamma, real eta){
+pub real srv_gompertz_log_hazard(real t, real gamma, real eta){
     return eta + gamma * t;
 }
 
@@ -29,7 +29,7 @@ real srv_gompertz_log_hazard(real t, real gamma, real eta){
 // @param gamma real, Change in log hazard per unit of time, shared by all observations.
 // @param eta vector, Per-observation log hazard at t = 0.
 // @return vector, Log hazard for each observation.
-vector srv_gompertz_log_hazard(vector t, real gamma, vector eta){
+pub vector srv_gompertz_log_hazard(vector t, real gamma, vector eta){
     return eta + gamma * t;
 }
 
@@ -39,7 +39,7 @@ vector srv_gompertz_log_hazard(vector t, real gamma, vector eta){
 // @param gamma vector, Per-observation change in log hazard per unit of time.
 // @param eta vector, Per-observation log hazard at t = 0.
 // @return vector, Log hazard for each observation.
-vector srv_gompertz_log_hazard(vector t, vector gamma, vector eta){
+pub vector srv_gompertz_log_hazard(vector t, vector gamma, vector eta){
     return eta + gamma .* t;
 }
 
@@ -58,7 +58,7 @@ vector srv_gompertz_log_hazard(vector t, vector gamma, vector eta){
 // @math
 // \log h(t) = \log\beta - \log\alpha + (\beta - 1)\log\left(\frac{t}{\alpha}\right)
 //   - \log\left(1 + \left(\frac{t}{\alpha}\right)^{\beta}\right)
-real srv_log_logistics_log_hazard(real t, real alpha, real beta){
+pub real srv_log_logistics_log_hazard(real t, real alpha, real beta){
     return log(beta) - log(alpha) + (beta - 1) * log(t / alpha) - log(1 + pow(t / alpha, beta));
 }
 
@@ -68,7 +68,7 @@ real srv_log_logistics_log_hazard(real t, real alpha, real beta){
 // @param alpha real, Scale parameter (alpha > 0), shared by all observations.
 // @param beta real, Shape parameter (beta > 0), shared by all observations.
 // @return vector, Log hazard for each observation.
-vector srv_log_logistics_log_hazard(vector t, real alpha, real beta){
+pub vector srv_log_logistics_log_hazard(vector t, real alpha, real beta){
     return log(beta) - log(alpha) + (beta - 1) * log(t / alpha) - log(1 + pow(t / alpha, beta));
 }
 
@@ -78,7 +78,7 @@ vector srv_log_logistics_log_hazard(vector t, real alpha, real beta){
 // @param alpha vector, Per-observation scale parameter (alpha > 0).
 // @param beta vector, Per-observation shape parameter (beta > 0).
 // @return vector, Log hazard for each observation.
-vector srv_log_logistics_log_hazard(vector t, vector alpha, vector beta){
+pub vector srv_log_logistics_log_hazard(vector t, vector alpha, vector beta){
     return log(beta) - log(alpha) + (beta - 1) .* log(t ./ alpha) - log(1 + pow(t ./ alpha, beta));
 }
 
@@ -98,7 +98,7 @@ vector srv_log_logistics_log_hazard(vector t, vector alpha, vector beta){
 // @example real lh = survival::srv_makeham_log_hazard(2.0, a, gamma, eta0);
 // @math
 // \log h(t) = \log\left(a + e^{\eta + \gamma t}\right)
-real srv_makeham_log_hazard(real t, real a, real gamma, real eta){
+pub real srv_makeham_log_hazard(real t, real a, real gamma, real eta){
     return log(a + exp(eta + gamma * t));
 }
 
@@ -109,7 +109,7 @@ real srv_makeham_log_hazard(real t, real a, real gamma, real eta){
 // @param gamma real, Growth rate of the exponential component.
 // @param eta real, Log of the exponential component's scale b, shared by all observations.
 // @return vector, Log hazard for each observation.
-vector srv_makeham_log_hazard(vector t, vector a, real gamma, real eta){
+pub vector srv_makeham_log_hazard(vector t, vector a, real gamma, real eta){
     return log(a + exp(eta + gamma * t));
 }
 
@@ -120,7 +120,7 @@ vector srv_makeham_log_hazard(vector t, vector a, real gamma, real eta){
 // @param gamma real, Growth rate of the exponential component.
 // @param eta vector, Per-observation log of the exponential component's scale b.
 // @return vector, Log hazard for each observation.
-vector srv_makeham_log_hazard(vector t, real a, real gamma, vector eta){
+pub vector srv_makeham_log_hazard(vector t, real a, real gamma, vector eta){
     return log(a + exp(eta + gamma * t));
 }
 
@@ -131,7 +131,7 @@ vector srv_makeham_log_hazard(vector t, real a, real gamma, vector eta){
 // @param gamma real, Growth rate of the exponential component.
 // @param eta vector, Per-observation log of the exponential component's scale b.
 // @return vector, Log hazard for each observation.
-vector srv_makeham_log_hazard(vector t, vector a, real gamma,  vector eta){
+pub vector srv_makeham_log_hazard(vector t, vector a, real gamma,  vector eta){
     return log(a + exp(eta + gamma * t));
 }
 // Piecewise exponential log Hazard Function ======================================================
@@ -151,7 +151,7 @@ vector srv_makeham_log_hazard(vector t, vector a, real gamma,  vector eta){
 // }
 // @math
 // j(t_n) = \max\{\, j \in 1..J : s_j < t_n \,\}, \quad j(t_n) = 1 \text{ if no such } j > 1
-array[] int srv_pwe_interval(data vector t, data vector starts) {
+pub array[] int srv_pwe_interval(data vector t, data vector starts) {
   int N = rows(t);
   int J = rows(starts);
   array[N] int idx;
@@ -177,7 +177,7 @@ array[] int srv_pwe_interval(data vector t, data vector starts) {
 // }
 // @math
 // E_{nj} = \max\left(0,\ \min(t_n, s_{j+1}) - s_j\right), \quad s_{J+1} = \infty
-matrix srv_pwe_exposure(data vector t, data vector starts) {
+pub matrix srv_pwe_exposure(data vector t, data vector starts) {
   int N = rows(t);
   int J = rows(starts);
   matrix[N, J] E;
@@ -199,7 +199,7 @@ matrix srv_pwe_exposure(data vector t, data vector starts) {
 // @example vector[N] log_h = survival::srv_pwe_log_hazard(interval, log_lambda, X * beta);
 // @math
 // \log h_n = \log\lambda_{j(t_n)} + \eta_n
-vector srv_pwe_log_hazard(data array[] int interval, vector log_lambda, vector eta) {
+pub vector srv_pwe_log_hazard(data array[] int interval, vector log_lambda, vector eta) {
   return log_lambda[interval] + eta;
 }
 
@@ -210,12 +210,12 @@ vector srv_pwe_log_hazard(data array[] int interval, vector log_lambda, vector e
 // Helper functions for save div
 //@laplace 
 //@brief functions for save computes (exp(x) - 1) / x 
-real srv_expm1_div(real x) {                             // computes (exp(x) - 1) / x safely
+pub real srv_expm1_div(real x) {                             // computes (exp(x) - 1) / x safely
   if (abs(x) < 1e-5) return 1 + x / 2 + square(x) / 6;   // Taylor series near 0
   return expm1(x) / x;
 }
 
-vector srv_expm1_div(vector x) {                         
+pub vector srv_expm1_div(vector x) {                         
     int n = size(x);
     vector[n] x_new;
     for(i in 1:n){
@@ -241,7 +241,7 @@ vector srv_expm1_div(vector x) {
 // @math
 // H(t) = \int_0^t h(u)\,du = e^{\eta}\,\frac{e^{\gamma t} - 1}{\gamma}
 //      = e^{\eta}\, t\, \frac{\operatorname{expm1}(\gamma t)}{\gamma t}
-real srv_gompertz_cumulative_hazard(real t, real gamma, real eta) {
+pub real srv_gompertz_cumulative_hazard(real t, real gamma, real eta) {
   return exp(eta) * t * srv_expm1_div(gamma * t);
 }
 
@@ -251,7 +251,7 @@ real srv_gompertz_cumulative_hazard(real t, real gamma, real eta) {
 // @param gamma real, Change in log hazard per unit of time.
 // @param eta real, Log hazard at t = 0, shared by all times.
 // @return vector, Cumulative hazard at each time.
-vector srv_gompertz_cumulative_hazard(vector t, real gamma, real eta) {
+pub vector srv_gompertz_cumulative_hazard(vector t, real gamma, real eta) {
   return exp(eta) .* t .* srv_expm1_div(gamma * t);
 }
 
@@ -261,7 +261,7 @@ vector srv_gompertz_cumulative_hazard(vector t, real gamma, real eta) {
 // @param gamma real, Change in log hazard per unit of time, shared by all observations.
 // @param eta vector, Per-observation log hazard at t = 0.
 // @return vector, Cumulative hazard for each observation.
-vector srv_gompertz_cumulative_hazard(vector t, real gamma, vector eta) {
+pub vector srv_gompertz_cumulative_hazard(vector t, real gamma, vector eta) {
   return exp(eta) .* t .* srv_expm1_div(gamma .* t);
 }
 
@@ -271,7 +271,7 @@ vector srv_gompertz_cumulative_hazard(vector t, real gamma, vector eta) {
 // @param gamma vector, Per-observation change in log hazard per unit of time.
 // @param eta vector, Per-observation log hazard at t = 0.
 // @return vector, Cumulative hazard for each observation.
-vector srv_gompertz_cumulative_hazard(vector t, vector gamma, vector eta) {
+pub vector srv_gompertz_cumulative_hazard(vector t, vector gamma, vector eta) {
   return exp(eta) .* t .* srv_expm1_div(gamma .* t);
 }
 
@@ -286,7 +286,7 @@ vector srv_gompertz_cumulative_hazard(vector t, vector gamma, vector eta) {
 // @example real H = survival::srv_log_logistics_cumulative_hazard(2.0, alpha, beta);
 // @math
 // H(t) = \log\left(1 + \left(\frac{t}{\alpha}\right)^{\beta}\right)
-real srv_log_logistics_cumulative_hazard(real t, real alpha, real beta){
+pub real srv_log_logistics_cumulative_hazard(real t, real alpha, real beta){
     return log(1 + pow(t / alpha, beta));
 }
 
@@ -296,7 +296,7 @@ real srv_log_logistics_cumulative_hazard(real t, real alpha, real beta){
 // @param alpha real, Scale parameter (alpha > 0), shared by all observations.
 // @param beta real, Shape parameter (beta > 0), shared by all observations.
 // @return vector, Cumulative hazard for each observation.
-vector srv_log_logistics_cumulative_hazard(vector t, real alpha, real beta){
+pub vector srv_log_logistics_cumulative_hazard(vector t, real alpha, real beta){
     return log(1 + pow(t / alpha, beta));
 }
 
@@ -306,7 +306,7 @@ vector srv_log_logistics_cumulative_hazard(vector t, real alpha, real beta){
 // @param alpha vector, Per-observation scale parameter (alpha > 0).
 // @param beta vector, Per-observation shape parameter (beta > 0).
 // @return vector, Cumulative hazard for each observation.
-vector srv_log_logistics_cumulative_hazard(vector t, vector alpha, vector beta){
+pub vector srv_log_logistics_cumulative_hazard(vector t, vector alpha, vector beta){
     return log(1 + pow(t ./ alpha, beta));
 }
 
@@ -322,7 +322,7 @@ vector srv_log_logistics_cumulative_hazard(vector t, vector alpha, vector beta){
 // @example real H = survival::srv_makeham_cumulative_hazard(2.0, a, gamma, eta0);
 // @math
 // H(t) = a t + e^{\eta}\,\frac{e^{\gamma t} - 1}{\gamma}
-real srv_makeham_cumulative_hazard(real t, real a, real gamma, real eta){
+pub real srv_makeham_cumulative_hazard(real t, real a, real gamma, real eta){
     return a * t + exp(eta) * t * srv_expm1_div(gamma * t);
 }
 
@@ -333,7 +333,7 @@ real srv_makeham_cumulative_hazard(real t, real a, real gamma, real eta){
 // @param gamma real, Growth rate of the exponential component.
 // @param eta real, Log of the exponential component's scale b, shared by all times.
 // @return vector, Cumulative hazard at each time.
-vector srv_makeham_cumulative_hazard(vector t, real a, real gamma, real eta){
+pub vector srv_makeham_cumulative_hazard(vector t, real a, real gamma, real eta){
     return a * t + exp(eta) * t .* srv_expm1_div(gamma * t);
 }
 
@@ -344,7 +344,7 @@ vector srv_makeham_cumulative_hazard(vector t, real a, real gamma, real eta){
 // @param gamma real, Growth rate of the exponential component.
 // @param eta vector, Per-observation log of the exponential component's scale b.
 // @return vector, Cumulative hazard for each observation.
-vector srv_makeham_cumulative_hazard(vector t, real a, real gamma, vector eta){
+pub vector srv_makeham_cumulative_hazard(vector t, real a, real gamma, vector eta){
     return a * t + exp(eta) .* t .* srv_expm1_div(gamma * t);
 }
 
@@ -355,7 +355,7 @@ vector srv_makeham_cumulative_hazard(vector t, real a, real gamma, vector eta){
 // @param gamma real, Growth rate of the exponential component.
 // @param eta vector, Per-observation log of the exponential component's scale b.
 // @return vector, Cumulative hazard for each observation.
-vector srv_makeham_cumulative_hazard(vector t, vector a, real gamma, vector eta){
+pub vector srv_makeham_cumulative_hazard(vector t, vector a, real gamma, vector eta){
     return a .* t + exp(eta) .* t .* srv_expm1_div(gamma * t);
 }
 
@@ -370,7 +370,7 @@ vector srv_makeham_cumulative_hazard(vector t, vector a, real gamma, vector eta)
 // @example vector[N] H = survival::srv_pwe_cumulative_hazard(E, log_lambda, X * beta);
 // @math
 // H_n = e^{\eta_n} \sum_{j=1}^{J} E_{nj}\, \lambda_j
-vector srv_pwe_cumulative_hazard(data matrix E, vector log_lambda, vector eta) {
+pub vector srv_pwe_cumulative_hazard(data matrix E, vector log_lambda, vector eta) {
   return (E * exp(log_lambda)) .* exp(eta);
 }
 
@@ -388,7 +388,7 @@ vector srv_pwe_cumulative_hazard(data matrix E, vector log_lambda, vector eta) {
 // @example target += survival::srv_gompertz_lpdf(t | gamma, X * beta, d);
 // @math
 // \log L = \sum_{i=1}^{N} \left[ d_i \log h(t_i) - H(t_i) \right]
-real srv_gompertz_lpdf(vector t,  real gamma, vector eta, data vector d){
+pub real srv_gompertz_lpdf(vector t,  real gamma, vector eta, data vector d){
     vector[num_elements(t)] log_h;
     log_h = srv_gompertz_log_hazard(t, gamma, eta);
     return dot_product(d, log_h) - sum(srv_gompertz_cumulative_hazard(t, gamma, eta));
@@ -401,7 +401,7 @@ real srv_gompertz_lpdf(vector t,  real gamma, vector eta, data vector d){
 // @param eta vector, Per-observation log hazard at t = 0.
 // @param d data vector, Event indicator: 1 = event observed, 0 = right-censored.
 // @return real, Total log likelihood.
-real srv_gompertz_lpdf(vector t, vector gamma, vector eta, data vector d){
+pub real srv_gompertz_lpdf(vector t, vector gamma, vector eta, data vector d){
     vector[num_elements(t)] log_h;
     log_h = srv_gompertz_log_hazard(t, gamma, eta);
     return dot_product(d, log_h) - sum(srv_gompertz_cumulative_hazard(t, gamma, eta));
@@ -416,7 +416,7 @@ real srv_gompertz_lpdf(vector t, vector gamma, vector eta, data vector d){
 // @example target += survival::srv_gompertz_lccdf(t_cens | gamma, eta_cens);
 // @math
 // \sum_{i} \log S(t_i) = -\sum_{i} H(t_i)
-real srv_gompertz_lccdf(vector t, real gamma, vector eta){
+pub real srv_gompertz_lccdf(vector t, real gamma, vector eta){
     return -sum(srv_gompertz_cumulative_hazard(t, gamma, eta));
 }
 
@@ -426,7 +426,7 @@ real srv_gompertz_lccdf(vector t, real gamma, vector eta){
 // @param gamma vector, Per-observation change in log hazard per unit of time.
 // @param eta vector, Per-observation log hazard at t = 0.
 // @return real, Sum of log S(t_i).
-real srv_gompertz_lccdf(vector t, vector gamma, vector eta){
+pub real srv_gompertz_lccdf(vector t, vector gamma, vector eta){
     return -sum(srv_gompertz_cumulative_hazard(t, gamma, eta));
 }
 
@@ -442,7 +442,7 @@ real srv_gompertz_lccdf(vector t, vector gamma, vector eta){
 // @example vector[N] log_lik = survival::srv_gompertz_loglik(t, d, gamma, eta);
 // @math
 // \ell_i = d_i \log h(t_i) - H(t_i)
-vector srv_gompertz_loglik(vector t, data vector d, real gamma, vector eta) {
+pub vector srv_gompertz_loglik(vector t, data vector d, real gamma, vector eta) {
   return d .* srv_gompertz_log_hazard(t, gamma, eta) - srv_gompertz_cumulative_hazard(t, gamma, eta);
 }
 
@@ -453,7 +453,7 @@ vector srv_gompertz_loglik(vector t, data vector d, real gamma, vector eta) {
 // @param gamma vector, Per-observation change in log hazard per unit of time.
 // @param eta vector, Per-observation log hazard at t = 0.
 // @return vector, Log likelihood contribution of each observation.
-vector srv_gompertz_loglik(vector t, data vector d, vector gamma, vector eta) {
+pub vector srv_gompertz_loglik(vector t, data vector d, vector gamma, vector eta) {
   return d .* srv_gompertz_log_hazard(t, gamma, eta) - srv_gompertz_cumulative_hazard(t, gamma, eta);
 }
 
@@ -469,7 +469,7 @@ vector srv_gompertz_loglik(vector t, data vector d, vector gamma, vector eta) {
 // @example target += survival::srv_log_logistics_lpdf(t | alpha, beta, d);
 // @math
 // \log L = \sum_{i=1}^{N} \left[ d_i \log h(t_i) - H(t_i) \right]
-real srv_log_logistics_lpdf(vector t, real alpha, real beta, data vector d){
+pub real srv_log_logistics_lpdf(vector t, real alpha, real beta, data vector d){
     return dot_product(d, srv_log_logistics_log_hazard(t, alpha, beta)) - sum(srv_log_logistics_cumulative_hazard(t, alpha, beta));
 }
 
@@ -480,7 +480,7 @@ real srv_log_logistics_lpdf(vector t, real alpha, real beta, data vector d){
 // @param beta vector, Per-observation shape parameter (beta > 0).
 // @param d data vector, Event indicator: 1 = event observed, 0 = right-censored.
 // @return real, Total log likelihood.
-real srv_log_logistics_lpdf(vector t, vector alpha, vector beta, data vector d){
+pub real srv_log_logistics_lpdf(vector t, vector alpha, vector beta, data vector d){
     return dot_product(d, srv_log_logistics_log_hazard(t, alpha, beta)) - sum(srv_log_logistics_cumulative_hazard(t, alpha, beta));
 }
 
@@ -493,7 +493,7 @@ real srv_log_logistics_lpdf(vector t, vector alpha, vector beta, data vector d){
 // @example target += survival::srv_log_logistics_lccdf(t_cens | alpha, beta);
 // @math
 // \sum_{i} \log S(t_i) = -\sum_{i} \log\left(1 + \left(\frac{t_i}{\alpha}\right)^{\beta}\right)
-real srv_log_logistics_lccdf(vector t, real alpha, real beta){
+pub real srv_log_logistics_lccdf(vector t, real alpha, real beta){
     return -sum(srv_log_logistics_cumulative_hazard(t, alpha, beta));
 }
 
@@ -503,7 +503,7 @@ real srv_log_logistics_lccdf(vector t, real alpha, real beta){
 // @param alpha vector, Per-observation scale parameter (alpha > 0).
 // @param beta vector, Per-observation shape parameter (beta > 0).
 // @return real, Sum of log S(t_i).
-real srv_log_logistics_lccdf(vector t, vector alpha, vector beta){
+pub real srv_log_logistics_lccdf(vector t, vector alpha, vector beta){
     return -sum(srv_log_logistics_cumulative_hazard(t, alpha, beta));
 }
 
@@ -519,7 +519,7 @@ real srv_log_logistics_lccdf(vector t, vector alpha, vector beta){
 // @example vector[N] log_lik = survival::srv_log_logistics_loglik(t, d, alpha, beta);
 // @math
 // \ell_i = d_i \log h(t_i) - H(t_i)
-vector srv_log_logistics_loglik(vector t, data vector d, real alpha, real beta){
+pub vector srv_log_logistics_loglik(vector t, data vector d, real alpha, real beta){
     return d .* srv_log_logistics_log_hazard(t, alpha, beta) - srv_log_logistics_cumulative_hazard(t, alpha, beta);
 }
 
@@ -530,7 +530,7 @@ vector srv_log_logistics_loglik(vector t, data vector d, real alpha, real beta){
 // @param alpha vector, Per-observation scale parameter (alpha > 0).
 // @param beta vector, Per-observation shape parameter (beta > 0).
 // @return vector, Log likelihood contribution of each observation.
-vector srv_log_logistics_loglik(vector t, data vector d, vector alpha, vector beta){
+pub vector srv_log_logistics_loglik(vector t, data vector d, vector alpha, vector beta){
     return d .* srv_log_logistics_log_hazard(t, alpha, beta) - srv_log_logistics_cumulative_hazard(t, alpha, beta);
 }
 
@@ -548,7 +548,7 @@ vector srv_log_logistics_loglik(vector t, data vector d, vector alpha, vector be
 // @math
 // \log L = \sum_{i=1}^{N} \left[ d_i \log\left(a + e^{\eta_i + \gamma t_i}\right)
 //   - a t_i - e^{\eta_i}\,\frac{e^{\gamma t_i} - 1}{\gamma} \right]
-real srv_makeham_lpdf(vector t, real a, real gamma, vector eta, data vector d){
+pub real srv_makeham_lpdf(vector t, real a, real gamma, vector eta, data vector d){
     return dot_product(d, srv_makeham_log_hazard(t, a, gamma, eta)) - sum(srv_makeham_cumulative_hazard(t, a, gamma, eta));
 }
 
@@ -560,7 +560,7 @@ real srv_makeham_lpdf(vector t, real a, real gamma, vector eta, data vector d){
 // @param eta vector, Per-observation log of the exponential component's scale b.
 // @param d data vector, Event indicator: 1 = event observed, 0 = right-censored.
 // @return real, Total log likelihood.
-real srv_makeham_lpdf(vector t, vector a, real gamma, vector eta, data vector d){
+pub real srv_makeham_lpdf(vector t, vector a, real gamma, vector eta, data vector d){
     return dot_product(d, srv_makeham_log_hazard(t, a, gamma, eta)) - sum(srv_makeham_cumulative_hazard(t, a, gamma, eta));
 }
 
@@ -574,7 +574,7 @@ real srv_makeham_lpdf(vector t, vector a, real gamma, vector eta, data vector d)
 // @example target += survival::srv_makeham_lccdf(t_cens | a, gamma, eta_cens);
 // @math
 // \sum_{i} \log S(t_i) = -\sum_{i} H(t_i)
-real srv_makeham_lccdf(vector t, real a, real gamma, vector eta){
+pub real srv_makeham_lccdf(vector t, real a, real gamma, vector eta){
     return -sum(srv_makeham_cumulative_hazard(t, a, gamma, eta));
 }
 
@@ -585,7 +585,7 @@ real srv_makeham_lccdf(vector t, real a, real gamma, vector eta){
 // @param gamma real, Growth rate of the exponential component.
 // @param eta vector, Per-observation log of the exponential component's scale b.
 // @return real, Sum of log S(t_i).
-real srv_makeham_lccdf(vector t, vector a, real gamma, vector eta){
+pub real srv_makeham_lccdf(vector t, vector a, real gamma, vector eta){
     return -sum(srv_makeham_cumulative_hazard(t, a, gamma, eta));
 }
 
@@ -602,7 +602,7 @@ real srv_makeham_lccdf(vector t, vector a, real gamma, vector eta){
 // @example vector[N] log_lik = survival::srv_makeham_loglik(t, a, gamma, eta, d);
 // @math
 // \ell_i = d_i \log h(t_i) - H(t_i)
-vector srv_makeham_loglik(vector t, real a, real gamma, vector eta, data vector d){
+pub vector srv_makeham_loglik(vector t, real a, real gamma, vector eta, data vector d){
     return d .* srv_makeham_log_hazard(t, a, gamma, eta) - srv_makeham_cumulative_hazard(t, a, gamma, eta);
 }
 
@@ -614,7 +614,7 @@ vector srv_makeham_loglik(vector t, real a, real gamma, vector eta, data vector 
 // @param eta vector, Per-observation log of the exponential component's scale b.
 // @param d data vector, Event indicator: 1 = event observed, 0 = right-censored.
 // @return vector, Log likelihood contribution of each observation.
-vector srv_makeham_loglik(vector t, vector a, real gamma, vector eta, data vector d){
+pub vector srv_makeham_loglik(vector t, vector a, real gamma, vector eta, data vector d){
     return d .* srv_makeham_log_hazard(t, a, gamma, eta) - srv_makeham_cumulative_hazard(t, a, gamma, eta);
 }
 
@@ -632,7 +632,7 @@ vector srv_makeham_loglik(vector t, vector a, real gamma, vector eta, data vecto
 // @math
 // \log L = \sum_{n=1}^{N} \left[ d_n \left(\log\lambda_{j(t_n)} + \eta_n\right)
 //   - e^{\eta_n} \sum_{j=1}^{J} E_{nj}\,\lambda_j \right]
-real srv_pwe_loglik_sum(data array[] int interval, data matrix E, data vector d,vector log_lambda, vector eta) {
+pub real srv_pwe_loglik_sum(data array[] int interval, data matrix E, data vector d,vector log_lambda, vector eta) {
   return dot_product(d, srv_pwe_log_hazard(interval, log_lambda, eta)) - sum(srv_pwe_cumulative_hazard(E, log_lambda, eta));
 }
 
@@ -647,7 +647,7 @@ real srv_pwe_loglik_sum(data array[] int interval, data matrix E, data vector d,
 // @example vector[N] log_lik = survival::srv_pwe_loglik(interval, E, d, log_lambda, eta);
 // @math
 // \ell_n = d_n \log h_n - H_n
-vector srv_pwe_loglik(data array[] int interval, data matrix E, data vector d, vector log_lambda, vector eta) {
+pub vector srv_pwe_loglik(data array[] int interval, data matrix E, data vector d, vector log_lambda, vector eta) {
   return d .* srv_pwe_log_hazard(interval, log_lambda, eta) - srv_pwe_cumulative_hazard(E, log_lambda, eta);
 }
 
@@ -662,7 +662,7 @@ vector srv_pwe_loglik(data array[] int interval, data matrix E, data vector d, v
 // @example vector[G] S = survival::srv_gompertz_survival_curve(t_grid, gamma, rep_vector(eta0, G));
 // @math
 // S(t) = \exp\left(-H(t)\right) = \exp\left(-e^{\eta}\,\frac{e^{\gamma t} - 1}{\gamma}\right)
-vector srv_gompertz_survival_curve(vector t, real gamma, vector eta) {
+pub vector srv_gompertz_survival_curve(vector t, real gamma, vector eta) {
   return exp(-srv_gompertz_cumulative_hazard(t, gamma, eta));
 }
 
@@ -672,7 +672,7 @@ vector srv_gompertz_survival_curve(vector t, real gamma, vector eta) {
 // @param gamma vector, Per-element change in log hazard per unit of time.
 // @param eta vector, Per-element log hazard at t = 0.
 // @return vector, Survival probability at each time.
-vector srv_gompertz_survival_curve(vector t, vector gamma, vector eta) {
+pub vector srv_gompertz_survival_curve(vector t, vector gamma, vector eta) {
   return exp(-srv_gompertz_cumulative_hazard(t, gamma, eta));
 }
 
@@ -685,7 +685,7 @@ vector srv_gompertz_survival_curve(vector t, vector gamma, vector eta) {
 // @example vector[G] S = survival::srv_log_logistics_survival_curve(t_grid, alpha, beta);
 // @math
 // S(t) = \frac{1}{1 + \left(t / \alpha\right)^{\beta}}
-vector srv_log_logistics_survival_curve(vector t, real alpha, real beta){
+pub vector srv_log_logistics_survival_curve(vector t, real alpha, real beta){
     return exp(-srv_log_logistics_cumulative_hazard(t, alpha, beta));
 }
 
@@ -695,7 +695,7 @@ vector srv_log_logistics_survival_curve(vector t, real alpha, real beta){
 // @param alpha vector, Per-element scale parameter (alpha > 0).
 // @param beta vector, Per-element shape parameter (beta > 0).
 // @return vector, Survival probability at each time.
-vector srv_log_logistics_survival_curve(vector t, vector alpha, vector beta){
+pub vector srv_log_logistics_survival_curve(vector t, vector alpha, vector beta){
     return exp(-srv_log_logistics_cumulative_hazard(t, alpha, beta));
 }
 
@@ -709,7 +709,7 @@ vector srv_log_logistics_survival_curve(vector t, vector alpha, vector beta){
 // @example vector[G] S = survival::srv_makeham_survival_curve(t_grid, a, gamma, rep_vector(eta0, G));
 // @math
 // S(t) = \exp\left(-a t - e^{\eta}\,\frac{e^{\gamma t} - 1}{\gamma}\right)
-vector srv_makeham_survival_curve(vector t, real a, real gamma, vector eta){
+pub vector srv_makeham_survival_curve(vector t, real a, real gamma, vector eta){
     return exp(-srv_makeham_cumulative_hazard(t, a, gamma, eta));
 }
 
@@ -720,7 +720,7 @@ vector srv_makeham_survival_curve(vector t, real a, real gamma, vector eta){
 // @param gamma real, Growth rate of the exponential component.
 // @param eta vector, Per-element log of the exponential component's scale b.
 // @return vector, Survival probability at each time.
-vector srv_makeham_survival_curve(vector t, vector a, real gamma, vector eta){
+pub vector srv_makeham_survival_curve(vector t, vector a, real gamma, vector eta){
     return exp(-srv_makeham_cumulative_hazard(t, a, gamma, eta));
 }
 
@@ -734,14 +734,14 @@ vector srv_makeham_survival_curve(vector t, vector a, real gamma, vector eta){
 // @example vector[G] S = survival::srv_pwe_survival_curve(E_grid, log_lambda, rep_vector(eta0, G));
 // @math
 // S_n = \exp\left(-e^{\eta_n} \sum_{j=1}^{J} E_{nj}\,\lambda_j\right)
-vector srv_pwe_survival_curve(data matrix E, vector log_lambda, vector eta){
+pub vector srv_pwe_survival_curve(data matrix E, vector log_lambda, vector eta){
     return exp(-srv_pwe_cumulative_hazard(E, log_lambda, eta));
 }
 
 // Random Number Generation from main functions (inverse CDF)
 //@laplace
 //@brief Safe log(1 + x) / x
-real srv_log1p_div(real x) {          // log1p(x) / x, safe near 0
+pub real srv_log1p_div(real x) {          // log1p(x) / x, safe near 0
   if (abs(x) < 1e-5) return 1 - x / 2 + square(x) / 3;
   return log1p(x) / x;
 }
@@ -755,7 +755,7 @@ real srv_log1p_div(real x) {          // log1p(x) / x, safe near 0
 // @math
 // T = \frac{1}{\gamma}\log\left(1 + \gamma\, E\, e^{-\eta}\right), \quad E \sim \mathrm{Exponential}(1)
 // T = \infty \ \text{if}\ 1 + \gamma E e^{-\eta} \le 0
-real srv_gompertz_rng(real gamma, real eta) {
+pub real srv_gompertz_rng(real gamma, real eta) {
   real z = exponential_rng(1) * exp(-eta);    // E / b
   real x = gamma * z;
   if (x <= -1) return positive_infinity();    // cured: never has the event
@@ -771,7 +771,7 @@ real srv_gompertz_rng(real gamma, real eta) {
 // @example real t_sim = survival::srv_makeham_rng(log(a), gamma, eta_new);
 // @math
 // T = \min(T_c, T_G), \quad T_c \sim \mathrm{Exponential}\left(e^{\log c}\right), \quad T_G \sim \mathrm{Gompertz}(\gamma, \eta)
-real srv_makeham_rng(real log_c, real gamma, real eta) {
+pub real srv_makeham_rng(real log_c, real gamma, real eta) {
   return fmin(exponential_rng(exp(log_c)), srv_gompertz_rng(gamma, eta));
 }
 
@@ -783,7 +783,7 @@ real srv_makeham_rng(real log_c, real gamma, real eta) {
 // @example real t_sim = survival::srv_log_logistics_rng(alpha, beta);
 // @math
 // T = \alpha \left(\frac{U}{1 - U}\right)^{1/\beta}, \quad U \sim \mathrm{Uniform}(0, 1)
-real srv_log_logistics_rng(real alpha, real beta) {
+pub real srv_log_logistics_rng(real alpha, real beta) {
     real u = uniform_rng(0, 1);
     return alpha * exp((log(u) - log1m(u)) / beta);
 }

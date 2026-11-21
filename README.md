@@ -63,6 +63,8 @@ Argument order is not identical across models — in particular, where the event
 
 ## Installation
 
+**Requires the laplace compiler 0.2 or newer.** `survival`'s public functions are marked with `pub` in its `.laplacelib` sources (there is no `exports` list in its `laplace.toml`), and the manifest declares `laplace = ">=0.2"`. Check your compiler with `laplace --version` and update it with `laplace self-update`. Tags up to `0.1.1` predate this and still build with older compilers.
+
 `survival` is distributed as a git-hosted Laplace library — there's no published registry entry yet, so it's added by pointing `laplace` (or `cmdlaplacer`, if you're working from R) directly at the repository. The package lives in the repository's `laplace/` subdirectory, so pass it as the subdir.
 
 ### Via the `laplace` CLI
@@ -192,7 +194,7 @@ fit$loo()   # uses the log_lik vector from generated quantities
 
 ## Things to know
 
-- **Use `target +=`, not `~`.** Laplace rewrites `survival::func(` calls, so write `target += survival::srv_gompertz_lpdf(t | ...)`. The `t ~ survival::srv_gompertz(...)` form won't resolve.
+- **`~` and `target +=` both work.** `t ~ survival::srv_gompertz(gamma, eta, d);` compiles to `t ~ survival__srv_gompertz(...)`, which Stan resolves to `survival__srv_gompertz_lpdf` like any user-defined distribution. Prefer `target += survival::srv_gompertz_lpdf(t | gamma, eta, d);` when you need the full log density (for example to compare models), since `~` lets Stan drop constant terms.
 - **The `lpdf` functions already handle censoring** through `d`, so pass every observation — events and censored — in one call. The `lccdf` functions are for the alternative pattern where censored rows are passed separately; never use both for the same rows, or censored observations are counted twice.
 - **`d` is a `vector`**, not an integer array. If your indicator is `array[N] int`, convert it once in `transformed data` with `to_vector(...)`.
 - **Right censoring only.** Left censoring, interval censoring, and delayed entry (left truncation) are not supported yet.
